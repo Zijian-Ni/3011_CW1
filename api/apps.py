@@ -1,6 +1,8 @@
-from django.app import AppConfig
+from django.apps import AppConfig
+from pathlib import Path
+
 
 class ApiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'api'
-    path = str(__file__).resolve().parent)
+    path = str(Path(__file__).resolve().parent)
