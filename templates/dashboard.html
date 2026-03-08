@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportsPulse Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'api/dashboard.css' %}">
+</head>
+<body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <main class="page">
+        <header class="hero reveal">
+            <p class="hero-eyebrow">Sports Analytics Control Room</p>
+            <h1>SportsPulse Live Insights Dashboard</h1>
+            <p class="hero-subtitle">
+                Track scoring leaders, team form, season trends, and head-to-head history from your API in one place.
+            </p>
+            <div class="hero-actions">
+                <a class="btn btn-secondary" href="/fan/">Fan View</a>
+                <a class="btn btn-secondary" href="/admin-portal/">Admin Portal</a>
+                <a class="btn btn-primary" href="/api/docs/" target="_blank" rel="noopener noreferrer">Open API Docs</a>
+                <a class="btn btn-secondary" href="/api/redoc/" target="_blank" rel="noopener noreferrer">Open ReDoc</a>
+            </div>
+        </header>
+
+        <section class="kpi-grid reveal">
+            <article class="kpi-card">
+                <p>Total Teams</p>
+                <h2 id="kpi-teams">--</h2>
+            </article>
+            <article class="kpi-card">
+                <p>Total Players</p>
+                <h2 id="kpi-players">--</h2>
+            </article>
+            <article class="kpi-card">
+                <p>Completed Matches</p>
+                <h2 id="kpi-matches">--</h2>
+            </article>
+            <article class="kpi-card">
+                <p>Current Season Avg Goals</p>
+                <h2 id="kpi-avg-goals">--</h2>
+            </article>
+        </section>
+
+        <section class="panel reveal" aria-labelledby="leaderboard-title">
+            <div class="panel-head">
+                <h3 id="leaderboard-title">Player Leaderboard</h3>
+                <form id="leaderboard-form" class="filters">
+                    <label>
+                        Metric
+                        <select name="metric">
+                            <option value="goals">Goals</option>
+                            <option value="assists">Assists</option>
+                        </select>
+                    </label>
+                    <label>
+                        Season
+                        <input type="text" name="season" placeholder="e.g. 2024/2025">
+                    </label>
+                    <label>
+                        Limit
+                        <input type="number" name="limit" value="10" min="3" max="50">
+                    </label>
+                    <button type="submit" class="btn btn-primary">Refresh</button>
+                </form>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Team</th>
+                            <th>Position</th>
+                            <th>Total</th>
+                            <th>Matches</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="grid-two reveal">
+            <article class="panel" aria-labelledby="standings-title">
+                <div class="panel-head">
+                    <h3 id="standings-title">Team Performance</h3>
+                    <form id="standings-form" class="filters compact">
+                        <label>
+                            Season
+                            <input type="text" name="season" placeholder="Optional">
+                        </label>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>P</th>
+                                <th>W</th>
+                                <th>D</th>
+                                <th>L</th>
+                                <th>GD</th>
+                                <th>Pts</th>
+                            </tr>
+                        </thead>
+                        <tbody id="standings-body"></tbody>
+                    </table>
+                </div>
+            </article>
+
+            <article class="panel" aria-labelledby="summary-title">
+                <div class="panel-head">
+                    <h3 id="summary-title">Season Summary</h3>
+                    <form id="summary-form" class="filters compact">
+                        <label>
+                            Season
+                            <input type="text" name="season" placeholder="2024/2025" required>
+                        </label>
+                        <button type="submit" class="btn btn-primary">Load</button>
+                    </form>
+                </div>
+                <div id="summary-card" class="summary-card">
+                    <p class="muted">Enter a season to view goals, top scorer and top assister.</p>
+                </div>
+            </article>
+        </section>
+
+        <section class="panel reveal" aria-labelledby="h2h-title">
+            <div class="panel-head">
+                <h3 id="h2h-title">Head-to-Head Explorer</h3>
+                <form id="h2h-form" class="filters">
+                    <label>
+                        Team 1
+                        <select name="team1" id="team1-select" required></select>
+                    </label>
+                    <label>
+                        Team 2
+                        <select name="team2" id="team2-select" required></select>
+                    </label>
+                    <label>
+                        Season
+                        <input type="text" name="season" placeholder="Optional">
+                    </label>
+                    <button type="submit" class="btn btn-primary">Compare</button>
+                </form>
+            </div>
+            <div id="h2h-result" class="h2h-card">
+                <p class="muted">Pick two teams to compare historical outcomes.</p>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Scoreline</th>
+                            <th>Venue</th>
+                        </tr>
+                    </thead>
+                    <tbody id="h2h-matches-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="{% static 'api/dashboard.js' %}" defer></script>
+</body>
+</html>
