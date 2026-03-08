@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportsPulse Admin Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'api/admin.css' %}">
+</head>
+<body>
+    <div class="noise" aria-hidden="true"></div>
+    <main class="portal">
+        <header class="masthead reveal">
+            <p class="eyebrow">Write Access Workspace</p>
+            <h1>SportsPulse Admin Portal</h1>
+            <p class="subtitle">
+                Manage teams, players, matches and per-match statistics from one control panel.
+                Read is public, but create, update and delete actions require a valid token.
+            </p>
+            <div class="nav-actions">
+                <a class="btn btn-muted" href="/">Analytics Dashboard</a>
+                <a class="btn btn-muted" href="/fan/">Fan View</a>
+                <a class="btn btn-primary" href="/api/docs/" target="_blank" rel="noopener noreferrer">API Docs</a>
+            </div>
+        </header>
+
+        <section class="panel reveal" aria-labelledby="auth-title">
+            <div class="panel-head">
+                <h2 id="auth-title">Authentication</h2>
+                <p id="auth-status" class="status">Not authenticated</p>
+            </div>
+            <div class="auth-grid">
+                <form id="login-form" class="auth-card">
+                    <h3>Login</h3>
+                    <label>
+                        Username
+                        <input type="text" name="username" required autocomplete="username">
+                    </label>
+                    <label>
+                        Password
+                        <input type="password" name="password" required autocomplete="current-password">
+                    </label>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form>
+
+                <form id="register-form" class="auth-card">
+                    <h3>Register</h3>
+                    <label>
+                        Username
+                        <input type="text" name="username" required autocomplete="username">
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" name="email" autocomplete="email">
+                    </label>
+                    <label>
+                        Password
+                        <input type="password" name="password" required minlength="8" autocomplete="new-password">
+                    </label>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </form>
+            </div>
+            <div class="token-bar">
+                <label class="token-input-wrap">
+                    Manual Token
+                    <input id="token-input" type="text" placeholder="Paste token and click Use Token">
+                </label>
+                <button id="use-token-btn" type="button" class="btn btn-muted">Use Token</button>
+                <button id="logout-btn" type="button" class="btn btn-danger">Logout</button>
+            </div>
+        </section>
+
+        <section class="panel reveal" aria-labelledby="manager-title">
+            <div class="panel-head manager-head">
+                <h2 id="manager-title">Resource Manager</h2>
+                <div class="manager-controls">
+                    <label>
+                        Resource
+                        <select id="resource-select">
+                            <option value="teams">Teams</option>
+                            <option value="players">Players</option>
+                            <option value="matches">Matches</option>
+                            <option value="statistics">Statistics</option>
+                        </select>
+                    </label>
+                    <button id="new-record-btn" type="button" class="btn btn-muted">Create New</button>
+                    <button id="refresh-btn" type="button" class="btn btn-primary">Refresh</button>
+                </div>
+            </div>
+
+            <div class="workspace">
+                <div class="table-zone">
+                    <div class="table-wrap">
+                        <table>
+                            <thead id="resource-head"></thead>
+                            <tbody id="resource-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <aside class="form-zone">
+                    <h3 id="form-title">Create Record</h3>
+                    <p id="form-hint" class="muted">Fill the form and save.</p>
+                    <form id="record-form" class="form-grid"></form>
+                    <div class="form-actions">
+                        <button id="save-record-btn" type="submit" form="record-form" class="btn btn-primary">Save</button>
+                        <button id="cancel-edit-btn" type="button" class="btn btn-muted">Cancel Edit</button>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="{% static 'api/admin.js' %}" defer></script>
+</body>
+</html>
