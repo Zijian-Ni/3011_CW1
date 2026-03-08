@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportsPulse Fan View</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'api/fan.css' %}">
+</head>
+<body>
+    <div class="grain" aria-hidden="true"></div>
+    <main class="fan-page">
+        <header class="hero reveal">
+            <p class="hero-kicker">Read-Only Fan Experience</p>
+            <h1>SportsPulse Matchday Center</h1>
+            <p>
+                Explore teams, fixtures, player profiles and live season insights.
+                This page is read-only and designed for normal users.
+            </p>
+            <div class="hero-actions">
+                <a class="btn btn-muted" href="/">Analytics Dashboard</a>
+                <a class="btn btn-muted" href="/admin-portal/">Admin Portal</a>
+                <a class="btn btn-primary" href="/api/docs/" target="_blank" rel="noopener noreferrer">API Docs</a>
+            </div>
+        </header>
+
+        <section class="kpi-row reveal">
+            <article class="kpi-card">
+                <p>Total Teams</p>
+                <h2 id="fan-kpi-teams">--</h2>
+            </article>
+            <article class="kpi-card">
+                <p>Total Players</p>
+                <h2 id="fan-kpi-players">--</h2>
+            </article>
+            <article class="kpi-card">
+                <p>Total Matches</p>
+                <h2 id="fan-kpi-matches">--</h2>
+            </article>
+            <article class="kpi-card">
+                <p>Latest Season</p>
+                <h2 id="fan-kpi-season">--</h2>
+            </article>
+        </section>
+
+        <section class="split reveal">
+            <article class="panel">
+                <div class="panel-head">
+                    <h3>Team Explorer</h3>
+                    <form id="team-filter-form" class="filters compact">
+                        <label>
+                            Search
+                            <input type="text" name="search" placeholder="Team name">
+                        </label>
+                        <label>
+                            Country
+                            <input type="text" name="country" placeholder="Country">
+                        </label>
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                    </form>
+                </div>
+                <div id="team-cards" class="cards-grid"></div>
+            </article>
+
+            <article class="panel">
+                <div class="panel-head">
+                    <h3>Match Feed</h3>
+                    <form id="match-filter-form" class="filters compact">
+                        <label>
+                            Season
+                            <input type="text" name="season" placeholder="e.g. 2024/2025">
+                        </label>
+                        <label>
+                            Status
+                            <select name="status">
+                                <option value="">All</option>
+                                <option value="SCHEDULED">SCHEDULED</option>
+                                <option value="LIVE">LIVE</option>
+                                <option value="COMPLETED">COMPLETED</option>
+                                <option value="POSTPONED">POSTPONED</option>
+                            </select>
+                        </label>
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                    </form>
+                </div>
+                <div id="match-list" class="match-list"></div>
+            </article>
+        </section>
+
+        <section class="panel reveal">
+            <div class="panel-head">
+                <h3>Leaderboard</h3>
+                <form id="fan-leaderboard-form" class="filters">
+                    <label>
+                        Metric
+                        <select name="metric">
+                            <option value="goals">Goals</option>
+                            <option value="assists">Assists</option>
+                        </select>
+                    </label>
+                    <label>
+                        Season
+                        <input type="text" name="season" placeholder="Optional">
+                    </label>
+                    <label>
+                        Limit
+                        <input type="number" name="limit" value="8" min="3" max="50">
+                    </label>
+                    <button type="submit" class="btn btn-primary">Refresh</button>
+                </form>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Team</th>
+                            <th>Position</th>
+                            <th>Total</th>
+                            <th>Matches</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fan-leaderboard-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel reveal">
+            <div class="panel-head">
+                <h3>Player Explorer</h3>
+                <form id="player-filter-form" class="filters">
+                    <label>
+                        Search
+                        <input type="text" name="search" placeholder="Player name">
+                    </label>
+                    <label>
+                        Team
+                        <select id="player-team-select" name="team">
+                            <option value="">All Teams</option>
+                        </select>
+                    </label>
+                    <label>
+                        Position
+                        <select name="position">
+                            <option value="">All</option>
+                            <option value="GK">GK</option>
+                            <option value="DF">DF</option>
+                            <option value="MF">MF</option>
+                            <option value="FW">FW</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+
+            <div class="split profile-layout">
+                <div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Team</th>
+                                    <th>Position</th>
+                                    <th>Nationality</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="player-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <aside>
+                    <div id="player-profile-card" class="profile-card">
+                        <p class="muted">Pick a player to load profile analytics.</p>
+                    </div>
+                    <div class="table-wrap profile-season-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Season</th>
+                                    <th>Apps</th>
+                                    <th>Goals</th>
+                                    <th>Assists</th>
+                                </tr>
+                            </thead>
+                            <tbody id="profile-season-body"></tbody>
+                        </table>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="{% static 'api/fan.js' %}" defer></script>
+</body>
+</html>
