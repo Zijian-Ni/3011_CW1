@@ -1,12 +1,23 @@
-# SportsPulse (Final Coursework Version)
+# SportsPulse
 
-> 🏆 **COMP3011 Coursework 1 — SportsPulse**  
-> Live demo: [zijianni.pythonanywhere.com](https://zijianni.pythonanywhere.com)  
-> API docs: [Swagger UI](https://zijianni.pythonanywhere.com/api/docs/) | [ReDoc](https://zijianni.pythonanywhere.com/api/redoc/)  
-> GitHub: [Zijian-Ni/3011_CW1](https://github.com/Zijian-Ni/3011_CW1)
+> Football Match Statistics & Analytics REST API
 
+[![Django CI](https://github.com/Zijian-Ni/3011_CW1/actions/workflows/django.yml/badge.svg)](https://github.com/Zijian-Ni/3011_CW1/actions/workflows/django.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-5.x-green.svg)](https://www.djangoproject.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Last updated: 2026-03-10
+| | |
+|---|---|
+| **Live Demo** | https://zijianni.pythonanywhere.com |
+| **Swagger UI** | https://zijianni.pythonanywhere.com/api/docs/ |
+| **ReDoc** | https://zijianni.pythonanywhere.com/api/redoc/ |
+| **OpenAPI Schema** | https://zijianni.pythonanywhere.com/api/schema/ |
+| **GitHub** | https://github.com/Zijian-Ni/3011_CW1 |
+
+**COMP3011 Web Services and Web Data | Coursework 1 | University of Leeds 2025-2026**
+
+Last updated: 2026-03-13
 
 SportsPulse is a Django + Django REST Framework football statistics and analytics platform for COMP3011 coursework.
 It includes full CRUD APIs, analytics endpoints, token auth, frontend pages for both normal users and admin operations, automated tests, and PythonAnywhere deployment support.
