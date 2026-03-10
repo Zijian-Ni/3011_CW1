@@ -1,6 +1,12 @@
 # SportsPulse (Final Coursework Version)
 
-Last updated: 2026-03-07
+> 🏆 **COMP3011 Coursework 1 — SportsPulse**  
+> Live demo: [zijianni.pythonanywhere.com](https://zijianni.pythonanywhere.com)  
+> API docs: [Swagger UI](https://zijianni.pythonanywhere.com/api/docs/) | [ReDoc](https://zijianni.pythonanywhere.com/api/redoc/)  
+> GitHub: [Zijian-Ni/3011_CW1](https://github.com/Zijian-Ni/3011_CW1)
+
+
+Last updated: 2026-03-10
 
 SportsPulse is a Django + Django REST Framework football statistics and analytics platform for COMP3011 coursework.
 It includes full CRUD APIs, analytics endpoints, token auth, frontend pages for both normal users and admin operations, automated tests, and PythonAnywhere deployment support.
@@ -43,7 +49,7 @@ sportspulse/
 |-- manage.py
 |-- requirements.txt
 |-- README.md
-|-- db.sqlite3
+
 |-- sportspulse/
 |   |-- settings.py
 |   |-- urls.py
@@ -80,7 +86,7 @@ sportspulse/
 ### 4.1 Create environment and install
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Zijian-Ni/3011_CW1
 cd sportspulse
 
 python -m venv venv
@@ -258,7 +264,7 @@ Coverage includes:
 
 ```bash
 cd ~
-git clone <your-repo-url> 3011_CW1
+git clone https://github.com/Zijian-Ni/3011_CW1 3011_CW1
 cd 3011_CW1
 
 mkvirtualenv sportspulse-venv --python=/usr/bin/python3.10
@@ -369,3 +375,39 @@ Then open:
 
 - This is a coursework submission project.
 - For public deployment, always set a private `DJANGO_SECRET_KEY` and set `DJANGO_DEBUG=False`.
+
+---
+
+## 16. Submitted Deliverables
+
+| Deliverable | Location |
+|---|---|
+| Source code | This repository |
+| API documentation (Swagger) | [`/api/docs/`](https://zijianni.pythonanywhere.com/api/docs/) (live) |
+| API documentation (ReDoc) | [`/api/redoc/`](https://zijianni.pythonanywhere.com/api/redoc/) (live) |
+| API documentation (PDF) | [`docs/api_documentation.pdf`](docs/api_documentation.pdf) |
+| Technical report | [`docs/technical_report.md`](docs/technical_report.md) |
+| GenAI declaration | [`docs/genai_declaration.md`](docs/genai_declaration.md) |
+
+## 17. Live Deployment
+
+| URL | Description |
+|---|---|
+| https://zijianni.pythonanywhere.com | Dashboard (home page) |
+| https://zijianni.pythonanywhere.com/fan/ | Fan portal (read-only) |
+| https://zijianni.pythonanywhere.com/admin-portal/ | Admin CRUD portal |
+| https://zijianni.pythonanywhere.com/api/ | API root |
+| https://zijianni.pythonanywhere.com/api/docs/ | Swagger UI |
+| https://zijianni.pythonanywhere.com/api/redoc/ | ReDoc |
+| https://zijianni.pythonanywhere.com/api/schema/ | OpenAPI JSON schema |
+
+## 18. Test Results
+
+```
+$ python manage.py test api
+Found 79 tests
+Ran 79 tests in X.XXXs
+OK
+```
+
+Last verified: 2026-03-07
