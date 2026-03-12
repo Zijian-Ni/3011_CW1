@@ -1,12 +1,25 @@
 """
 Reusable validators for query parameters and shared API inputs.
+
+Validation is layered across three levels in this project:
+  1. Django model-level validators (MinValueValidator, MaxValueValidator) --
+     enforce data integrity at the ORM layer before any DB write.
+  2. DRF serialiser-level validation (validate_<field> methods) --
+     catch domain-rule violations (e.g. a team cannot play itself).
+  3. View-level query-parameter validation (functions in this module) --
+     parse and validate URL parameters for list filtering and analytics views.
+
+All validators raise DRF's ValidationError on failure, which the framework
+automatically converts to a 400 Bad Request JSON response with field-level
+error messages.
 """
 
 import re
 
 from rest_framework.exceptions import ValidationError
 
-
+# Matches the YYYY/YYYY season format, e.g. "2024/2025".
+# Named groups allow easy extraction of start and end years for validation.
 SEASON_CODE_RE = re.compile(r'^(?P<start>\d{4})/(?P<end>\d{4})$')
 
 
