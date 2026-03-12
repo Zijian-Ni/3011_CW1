@@ -17,7 +17,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Swagger UI (`/api/docs/`) and ReDoc (`/api/redoc/`) interactive documentation via drf-spectacular
 - Three HTML frontend pages: Dashboard, Fan Portal, Admin Portal
 - PythonAnywhere deployment with static file serving and environment-based secrets
-- GitHub Actions CI workflow for automated test runs on push/PR
+- GitHub Actions CI workflow for automated test runs on push/PR (Python 3.10 + 3.12 matrix)
 - Comprehensive API documentation (PDF) with cURL examples
 
 ### Technical Decisions
