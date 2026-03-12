@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+### Added
+- Performance and production deployment tuning notes
+- Environment variables reference documentation (`docs/env-reference.md`)
+- Practical API usage examples with curl workflows in quick reference guide
+- Refined inline documentation and docstrings in model layer
+
+---
+
 ## [1.0.0] - 2026-03-13
 
 ### Added
