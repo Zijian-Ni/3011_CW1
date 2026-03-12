@@ -89,3 +89,49 @@ A condensed endpoint index for SportsPulse.
 | 401 | Unauthorized — missing/invalid token |
 | 404 | Not Found |
 | 429 | Too Many Requests — rate limit exceeded |
+
+---
+
+## Practical Usage Examples
+
+### Workflow: Register, Login, and Fetch Data
+
+```bash
+# 1. Register a new user
+curl -X POST https://zijianni.pythonanywhere.com/api/auth/register/ \
+  -H "Content-Type: application/json" \
+  -d '{"username": "testuser", "password": "SecurePass123"}'
+
+# 2. Login and capture the token
+TOKEN=$(curl -s -X POST https://zijianni.pythonanywhere.com/api/auth/login/ \
+  -H "Content-Type: application/json" \
+  -d '{"username": "testuser", "password": "SecurePass123"}' | python3 -c "import sys,json; print(json.load(sys.stdin)['token'])")
+
+# 3. List all teams
+curl -H "Authorization: Token $TOKEN" \
+  https://zijianni.pythonanywhere.com/api/teams/
+
+# 4. Get top scorer leaderboard
+curl -H "Authorization: Token $TOKEN" \
+  "https://zijianni.pythonanywhere.com/api/analytics/leaderboard/?season=2024/2025"
+
+# 5. Get head-to-head comparison
+curl -H "Authorization: Token $TOKEN" \
+  "https://zijianni.pythonanywhere.com/api/analytics/head-to-head/?team1=1&team2=2"
+```
+
+### Filtering and Pagination
+
+```bash
+# Filter players by position
+curl -H "Authorization: Token $TOKEN" \
+  "https://zijianni.pythonanywhere.com/api/players/?position=FW"
+
+# Filter matches by status
+curl -H "Authorization: Token $TOKEN" \
+  "https://zijianni.pythonanywhere.com/api/matches/?status=COMPLETED"
+
+# Paginate results (page size default: 20)
+curl -H "Authorization: Token $TOKEN" \
+  "https://zijianni.pythonanywhere.com/api/teams/?page=2"
+```
