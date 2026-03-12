@@ -1,5 +1,17 @@
 """
 Service-layer helpers for analytical endpoints.
+
+This module implements the business logic for all five analytics endpoints,
+keeping views thin and logic testable in isolation. Each public function
+accepts validated keyword arguments and returns a plain Python dict that
+the calling view serialises to JSON.
+
+Functions:
+    build_leaderboard_payload  -- ranked goals/assists leaderboard
+    build_team_performance_payload -- league standings with points
+    build_head_to_head_payload -- historical record between two teams
+    build_season_summary_payload -- season-wide aggregated statistics
+    build_player_profile_payload -- career totals and per-season breakdown
 """
 
 from django.db.models import Avg, Count, F, Q, Sum
