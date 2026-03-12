@@ -55,6 +55,10 @@ class Player(models.Model):
     The team field is a ForeignKey (Lecture 7, slides 9-10), so deleting
     a team cascades to its players. Position choices use Django's
     'choices' parameter (Lecture 6, slide 7).
+
+    Validation is handled at two levels:
+      - Model-level: jersey_number range validators (1-99)
+      - DB-level: UniqueConstraint ensures no two players share a jersey in the same team
     """
     POSITION_CHOICES = [
         ('GK', 'Goalkeeper'),
@@ -72,6 +76,7 @@ class Player(models.Model):
     position = models.CharField(max_length=2, choices=POSITION_CHOICES)
     nationality = models.CharField(max_length=64, blank=True, default='')
     date_of_birth = models.DateField(null=True, blank=True)
+    # Squad numbers range 1–99; null permitted for unsigned/loan players
     jersey_number = models.PositiveIntegerField(
         null=True,
         blank=True,
@@ -101,6 +106,9 @@ class Match(models.Model):
     Two ForeignKey fields point at Team, with related_name differentiation
     so we can do team.home_matches and team.away_matches separately.
     Status tracks whether a match is scheduled, in progress, or completed.
+
+    The season field uses a string format (e.g. "2024/2025") to accommodate
+    cross-year seasons without additional date logic.
     """
     STATUS_CHOICES = [
         ('SCHEDULED', 'Scheduled'),
