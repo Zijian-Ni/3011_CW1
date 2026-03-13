@@ -19,6 +19,8 @@
 
 Last updated: 2026-03-13
 
+> **Submission note:** All deliverables committed. See `docs/` for technical report, API documentation, deployment guide, and testing guide.
+
 SportsPulse is a Django + Django REST Framework football statistics and analytics platform for COMP3011 coursework.
 It includes full CRUD APIs, analytics endpoints, token auth, frontend pages for both normal users and admin operations, automated tests, and PythonAnywhere deployment support.
 
